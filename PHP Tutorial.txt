@@ -1,0 +1,163 @@
+PHP HyperText Preprocessor
+-process and email contact forms
+-upload files from online forms
+-generate thumbnails from larger images
+-watermark images
+
+-read and write files
+-communicate with a database MySql
+
+-and much more....
+
+Client
+s/r
+Web server
+s/r 
+PHP engine
+s/s Database
+
+Embedded language in HTMP markup
+--PHP code remains in the server and will not show up on the Client
+
+suggest XAMPP on windows
+
+Script editor ****
+PHP syntax checking
+PHP syntax coloring
+PHP code hints
+Line numbering
+A "brace balancing" feature
+
+suggest
+Among the free offerings, PHP development tools, PDT, and Komodo Edit, are good.
+www.eclipse.org/pdt
+www.activestate.com/komodo-edit
+
+www,adobe.com/products/dreamweaver he will use
+
+
+
+=======================Checking the PHP configuration
+server root
+
+XAMPP
+c:\xampp\htdocs 
+ 
+  in here create introducingphp and setup folder then
+ now create a file called config.php
+ with only one line
+<?php phpinfo(); ?>
+
+ can see it in browser like this http://localhost/introducingphp/setup/config.php
+ 
+ 1) see php version at top
+ 2) Core section
+ --display_errors should be on for local running but off for live version for security
+ --error_reporting   should be at least 32767
+ --magic_quotes_gpc  is not longer used
+ 
+ ==============================Changing configuration settings
+ in php.ini
+ magic_quotes_gpc=Off should match the setting on the remote server (most likely is Off)
+ 
+ error_reporting=E_ALL & ~E_DEPRECATED & ~E_STRICT
+ on a MAC he set it to this
+ error_reporting=E_ALL | E_STRICT   this gets the value set to 32767
+ 
+ 
+ ===============***** Chapter 2 PHP Basics ******============
+ =======================PHP: The big picture
+ --must be processed and stored in the server root 
+ --.php 
+ -- PHP enclose in tags  <?php  ?>
+ Common Features
+    variables
+	arrays
+	conditional
+	loops
+	functions and objects
+Must be processed by  the server so do not see PHP
+Always view the page using a URL  http://localhost...
+ 
+========================Naming variables
+rules
+   Name
+   Total 
+   
+   Always begins with $ 
+   next no number
+   only _ allowed
+   no spaces 
+   are case sensitive 
+   
+   **** 
+   $this is reserved
+   do not use the following http://www.php.net/manual/en/reserved.php 
+   
+  use camel case or _  eg $firstName or $first_name 
+  
+========================Displaying text and numbers
+$firstName = 'Rick';
+$firstName = 'Rick';
+$total = 56;
+echo $firstName;
+print $firstName;
+
+Echo can do more variables with commas
+echo $firstName, $total;
+
+<?php 
+$firstName = 'Rick';
+$total = 56;
+echo $firstName, $total;
+print $firstName;
+?>
+
+========================Comments and whitespace
+<?php
+// This is a comment that will be ignored by php 
+# This is also a comment 
+$firstName = 'David'; //This ia a single line comment
+$lastName = 'Sring'; #comment
+/* This ia a multiple line commentIs takes 
+   on until */
+   
+   echo $firstName;
+   echo ' ';
+   echo $lastName;
+========================Storing text as strings
+single and double quotes
+<?php
+$book = "Hitchhiker's Guide to the Galaxy";
+$book = 'Hitchhiker\'s Guide to the Galaxy';
+$book = '"Hitchhiker\'s Guide to the Galaxy"';
+echo 'I love $book';
+echo ".....I love $book";
+
+Escape Chars
+\"
+\n
+\r carriage return
+\t 
+\\
+\$ 
+\{ 
+\}
+\[
+\]
+========================Joining strings 
+
+========================Doing calculations with PHP 
+
+========================Storing multiple values in arrays
+
+ ===============***** Chapter 3 Using Control Structures and Loops ******============
+ 
+ ===============***** Chapter 4 Functions, Objects, and Errors ******============
+  
+ ===============***** Chapter 5 Emailing the Contents of an Online Form ******============
+   
+ ===============***** Chapter 6 Dealing with Multiple-Choise Form Fields ******============
+ 
+ 
+ 

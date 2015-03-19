@@ -1,0 +1,58 @@
+AMP
+
+Tiers
+Client Browser
+
+Apache  HTTP server
+sends requests to PHP
+PHP
+sends requests to database
+MySQL
+
+==================
+XAMPP  has several things added to it. Runs on Windows and iOS and Linux???
+
+1) Install XAMPP  (for minimal might not want FTP, Mercury, Tomcat, Webilizer, Fake Sendmail)
+2) restart windows otherwise will not work correctly
+3) remember PORTs are critical so cannot share them with other AMP stacks
+
+4) Launch Control Panel : start Apache and MySQL (or stop)
+5) in browser to http://localhost
+   English
+   phpinfo() versions
+   Security : need passwords
+   phpMyAdmin
+   
+6) Control Panel
+  Netstat - which apps are using which ports
+  Config Buttons
+      see Aphachi httpd.conf, PHP php.ini, MySQL my.ini
+  Explorer button : htdocs --web sites 
+  
+7) Security
+   control panel Admin button -- Security  (need to fix this) (lock down so only local machine) 
+   
+   phpMyAdmin : no password so set password on security page
+   on web page security page click link to get to password setting
+   can save in File: C:\xampp\security\mysqlrootpasswd.txt   root nopassword
+ 
+=====================================PORT CONFLICTS
+windows run my services 
+Control Panel: Administrative Tools : Services
+I cannot see Apache or mySQL on it.
+   
+   Admin Command prompt
+   netstat -a -o | find "LISTENING" | find ":80"
+   result of this shows me the process # 9936 to see what applications are using this port
+   Task Manager  in search and run it...I could not find 9936 hmmmmm
+   
+   SKYPE conflict
+      tools options : advanced : connection (ports 80 and 443 for incoming...so unclick it, quit and restart it)
+	  
+	  
+   
+   
+   
+   
+   
+  
