@@ -387,14 +387,25 @@ require
 require_once 
  
  see include.php and paragraph.html
- 
  <?php include_once './includes/paragraph.html'; ?>
  <?php include './includes/paragraph.html'; ?>
  
  See require.php 
  <?php require './includes/paragraph.html'; ?>
+ NOTE: if the file is missing then a fatal error will occur and it will not render the page 
+ NOTE: require_once will only include it  once. If you have require 2 times for the same file it will fail.
 
 ==================================== Passing values by reference to a function
+Change the original value 
+
+$number = 2;
+function doubleIt($num){ reutrn numbe*= 2;}
+$doubled = doubleIt($number); 
+
+// pass by reference   NOTE &
+function doubleIt(&$num) {
+	$num *= 2;
+}
 ==================================== Understanding PHP classes and objects
 ==================================== Deciphering error messages
 ==================================== 
