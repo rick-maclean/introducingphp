@@ -262,13 +262,48 @@ Logical Operators
 
 
 ==================================== Using switch statements and the ternary operator
-==================================== Using loops for repetitive actions
+switch ($var) 
+{
+	case value1:
+		do this;
+		break;
+	case value2:
+	case value3
+		do this;
+		break;
+	case value4:
+		do this;
+		break;
+	default:
+		do this;
+}
 
+same as if else and elseif 
+
+see switch.php
+
+==============
+Ternary Operator
+$var = (condition) ? value if true : value if false; 
+
+==================================== Using loops for repetitive actions
+While Looping
+while (condition) {
+//code to be executed
+}
+
+do { 
+//code to be executed 
+} while (condition);
+
+
+For Looping
+for (initialize; condition; increment)
+{
+//code to be executed
+}
 ==================================== Looping through the contents of an array
-==================================== 
-==================================== 
-==================================== 
-==================================== 
+
 
  ===============***** Chapter 4 Functions, Objects, and Errors ******============
 ==================================== Using the built-in functions of PHP
