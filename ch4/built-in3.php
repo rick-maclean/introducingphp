@@ -18,6 +18,11 @@ sort($characters);
 foreach ($characters as $name) {
 	echo "<li>$name</li>";
 }
+
+rsort($characters);
+foreach ($characters as $name) {
+	echo "<li>$name</li>";
+}
 ?>
 </ul>
 </body>
