@@ -231,7 +231,35 @@ vs
  -an empty string ('', "")
  -An empty array-a Simple XML object created from empty tags
 
+ everything else is Implicitly True 
+ -1 is true
+ $OK = 'false';   //OK is true since it is a string 
+ 
 ==================================== Making decisions with conditions and comparisons
+if (condition is true) { do something}  //no ; needed
+
+if (condition is true) { do something} 
+else {do this}
+
+if (condition is true) { do something} 
+elseif (second condition) {do this}
+else {do this}
+
+Comparison Operators
+== Both are equal
+!=
+=== Both are identical
+!== The values are not identical
+>   The left value is greate than the right one>=
+<
+<=
+
+=====================
+Logical Operators 
+&&  $a && $b  true if both are true
+||  $a || $b  true if either are true
+!   !$a       true is $a is false 
+
 
 ==================================== Using switch statements and the ternary operator
 ==================================== Using loops for repetitive actions
