@@ -303,8 +303,15 @@ for (initialize; condition; increment)
 //code to be executed
 }
 ==================================== Looping through the contents of an array
+For Each loops
+foreach ($array_name as $value) {
+	//do something with $value 
+}
 
-
+Accessing Arrays    Keys and Values
+foreach ($array_name as $key => $value) {
+	//do something wtih $key and $value 
+}
  ===============***** Chapter 4 Functions, Objects, and Errors ******============
 ==================================== Using the built-in functions of PHP
 
