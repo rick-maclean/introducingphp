@@ -361,8 +361,39 @@ see built-in3.php
  NOTES:
  bool sort (array &$array [, int $sort_flags = SORT-REGULAR])  
 								NOTE:// & before $array means it changes $array the input variable
+								
 ==================================== Creating custom functions
+
+function name($parameter1, $parameter1, etc) {
+	//do commands in here and can do stuff with parameters 
+	return "$minutes:$seconds";
+}
+
+NOTE: return keyword is critical
+
+NOTE: if function is in another file you need to do an include(before function call) 
+in the files where that function is used.
+
 ==================================== Including external files
+Serve-side Includes
+	Files are merged gy the server 
+	External files can contain PHP, HTML, or both 
+	Code libraries
+	Common page elements 
+
+include 
+include_once 
+require 
+require_once 
+ 
+ see include.php and paragraph.html
+ 
+ <?php include_once './includes/paragraph.html'; ?>
+ <?php include './includes/paragraph.html'; ?>
+ 
+ See require.php 
+ <?php require './includes/paragraph.html'; ?>
+
 ==================================== Passing values by reference to a function
 ==================================== Understanding PHP classes and objects
 ==================================== Deciphering error messages
