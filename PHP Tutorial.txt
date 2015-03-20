@@ -64,6 +64,11 @@ c:\xampp\htdocs
  on a MAC he set it to this
  error_reporting=E_ALL | E_STRICT   this gets the value set to 32767
  
+
+
+
+
+
  
  ===============***** Chapter 2 PHP Basics ******============
  =======================PHP: The big picture
@@ -146,18 +151,135 @@ Escape Chars
 \[
 \]
 ========================Joining strings 
+Concat uses . period
+$newLines = "\r\n\r\n";
 
+$fullName = $firstName . ' ' . $lastName;
+//echo $fullName . '<br>';
+
+// Variables are processed in a double-quoted string
+$recommendation = "$book by $author";
+//echo $recommendation;
+
+$message = "Name: $fullName $newLines";
+$message .= "Recommendation: $recommendation $newLines";
+$message .= "Times listened: $timesListened";
+echo $message;
+
+
+=========================
+<!DOCTYPE HTML>
+<html>
+<head>
+<meta charset="utf-8">
+<title><?= $fullName; ?> Recommends</title>     // see ?=
+</head>
 ========================Doing calculations with PHP 
++ 
+-
+*
+/
+%  MODULO DIVISION 5%2 = 1 THE REMAINDER
+++  ADD 1
+--  SUBTRACT ONE
+   eg 
+   $number = 5;
+   $result = ++$number +2;  //is 8
+   vs
+   $result = $number++ +2;
+   
+others
++=  $a += $b is $a = $a + $balancing
 
 ========================Storing multiple values in arrays
+$charactersBook = array('Simba', 'r2d2', 'Ford PRefect', 'Zephod Beelebrox');
+//echo $charactersBook; //does not work
+print_r($charactersBook);
+echo '<br>';
+echo $charactersBook[1];
+$charactersBook[] = 'Marvin'; 
+$charactersBook[] = 'Slartilbartfartfast';
+echo '<br>';
+print_r($charactersBook); echo '<br><br>';
+
+//associative array 
+//key value
+$descriptions = array('Earth' => 'mostly harnless',
+						'Marvin' => 'the paranoid android');
+//add more
+$descriptions['Zephod'] = 'Presidend ofthe Imperial Galactic Government';
+print_r($descriptions);
+// echo "Earth is described as $descriptions['Earth']";  //not good 
+//need curly brackets for this
+echo '<br><br>';
+echo "Earth is described as {$descriptions['Earth']}";
+
+
+
+
 
  ===============***** Chapter 3 Using Control Structures and Loops ******============
- 
+==================================== The truth according to PHP
+True or False Booleans
+Explicit true or false TRUE FaLsE
+vs
+
+ Implicit
+ PHP regard the following values as FALSE 
+ -the keywords false and null
+ -zero as a number or string (0, 0.0. '0')
+ -an empty string ('', "")
+ -An empty array-a Simple XML object created from empty tags
+
+==================================== Making decisions with conditions and comparisons
+
+==================================== Using switch statements and the ternary operator
+==================================== Using loops for repetitive actions
+
+==================================== Looping through the contents of an array
+==================================== 
+==================================== 
+==================================== 
+==================================== 
+
  ===============***** Chapter 4 Functions, Objects, and Errors ******============
+==================================== Using the built-in functions of PHP
+
+==================================== Understanding PHP documentation
+==================================== Creating custom functions
+==================================== Including external files
+==================================== Passing values by reference to a function
+==================================== Understanding PHP classes and objects
+==================================== Deciphering error messages
+==================================== 
   
  ===============***** Chapter 5 Emailing the Contents of an Online Form ******============
+==================================== Understanding the difference between POST and GET
+==================================== Eliminating unwanted backslashes
+
+==================================== How PHP sends email
+==================================== Displaying error messages conditionally
+==================================== Making sure required fields aren't blank
+==================================== Preserving user input when a form is incomplete
+==================================== Blocking suspect phrases
+==================================== Adding headers and automating the reply address
+ ==================================== Building the message body
+ ==================================== Sending the email
+ ==================================== 
+ ==================================== 
+ ==================================== 
+ ==================================== 
+ ==================================== 
    
  ===============***** Chapter 6 Dealing with Multiple-Choise Form Fields ******============
+==================================== Handling radio button groups
+==================================== Handling single checkboxes
+==================================== Handling checkbox groups
+==================================== Handling select menus
+==================================== Handling multiple-choice lists
+==================================== 
+==================================== 
+==================================== 
  
  
  
