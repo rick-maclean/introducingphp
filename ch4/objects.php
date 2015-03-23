@@ -3,17 +3,17 @@
 $now = new DateTime();
 
 // Use the format() method to  format the output.
-echo $now->format('F j, Y h:ia') . '<br>';
+echo 'not sure what time zone: ' . $now->format('F j, Y h:ia') . '<br>';
 
 $dallas = new DateTimeZone('America/Winnipeg');
 $now->setTimezone($dallas);
-echo $now->format('F j, Y h:ia') . '<br>';
+echo 'Dallas time zone: ' . $now->format('F j, Y h:ia') . '<br>';
 
 // Cteate a new DateTimeZone object for Tokyo.
-//$tokyo = new DateTimeZone('Asia/Tokyo');
+$tokyo = new DateTimeZone('Asia/Tokyo');
 
 // Change the time zone of the DateTime object.
-//$now->setTimezone($tokyo);
+$now->setTimezone($tokyo);
 
 // Display the new value.
-//echo $now->format('F j, Y h:ia');
+echo  'Tokyo time zone: ' . $now->format('F j, Y h:ia');

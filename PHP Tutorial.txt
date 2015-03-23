@@ -317,11 +317,6 @@ foreach ($array_name as $key => $value) {
 
 
 
-
-
-
-
-
  ===============***** Chapter 4 Functions, Objects, and Errors ******============
 ==================================== Using the built-in functions of PHP
 phpversion();  all return a value which you can use or not 
@@ -407,7 +402,51 @@ function doubleIt(&$num) {
 	$num *= 2;
 }
 ==================================== Understanding PHP classes and objects
+OOP
+PHP is not an object oriented language. But it does have considerable support 
+for object oriented programming. 
+
+And object is a sophisticated data type that can store and manipulate values. Its 
+characteristics are defined by a collection of functions and variables, collectively 
+known as a class. Among PHP's built in classes. The DateTime, and DateTimeZone 
+classes are particularly useful. 
+
+http://php.net/manual/en/class.datetime.php 
+
+The purpose of this video is to explain how to create an instance of a class. To 
+create an object and how to access it's methods. 
+
+$now = new DateTime();     // use new to create an object
+$now->setTimezone($dallas); // -> for accessing function of class 
+
+One last point major changes were made to objects in classes in PHP five. Making them 
+incompatible with older versions of PHP. Don't use classes or objects that were 
+designed for PHP four.
+
 ==================================== Deciphering error messages
+
+Errors are an inescapable fact of a programmer life. Unfortunately, PHPs error 
+messages aren't always easy to understand. So, in this video I've gathered together 
+a bunch of files that contain some of the most common errors. I'll show you how to 
+interpret the error messages and hunt down the problem. This is probably the most 
+common error message that you'll come across. It says that it's a syntax error and 
+there's an unexpected curly brace, and it says it's happening there on line 22.
+
+There are 7 files with errors 
+1) error-semicolon   most common type of error
+2) error_missing-brace  
+3) error_encapsed
+<p><?php echo "In the revised version of the Hitchhiker's Guide, Earth is 
+  described as $descriptions['Earth']."; ?></p>
+  NOTE need {} around an array 
+  <p><?php echo "In the revised version of the Hitchhiker's Guide, Earth is 
+  described as {$descriptions['Earth']}."; ?></p>
+4) error_undefined-index
+    ehco and earth wrong 
+5) redirect to another page clicking a link
+   the error did not happen. It must be something fixed in PHP.
+6) error_double-colon  (T_PAAMAYIM_NEKUDOTAYIM)
+
 ==================================== 
   
   
