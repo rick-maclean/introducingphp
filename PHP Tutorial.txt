@@ -562,9 +562,131 @@ of every page that processes data from a form.
 
 
 ==================================== How PHP sends email
+$to = 'Dick Maclean <Rick_maclean@sil.org>,  maclean75116@msn.com';
+$subject = 'subject without new line chars';
+$body = 'This is a single string concatenated all together to send to the email funtion';
+
+mail($to, $subject, $body);
+
+more
+$headers = "From: webmaster@exmaple.com\r\n";
+$headers .= "Content-Type: text/plain; charset-utf-8\r\n";
+$headers .= "Cc: myfriend@example.com";
+mail($to, $subject, $body, $header);
+
+more to prevent spam
+mail($to, $subject, $body, $header, '-maclean75116@msn.com');  //my email address
+
+SEE mail.php
+
+get success
+$success = mail($to, $subject, $body, $header, '-maclean75116@msn.com'); 
+NOTE: need to communicate with a mail server.
+success could be true but the transport agent needs to do it so success = TRUE does not 
+
+
 ==================================== Displaying error messages conditionally
+see: C:\xampp\htdocs\introducingphp\ch5\error_messages  before and after
+
+<?php
+$errors = array();
+$missing = array();
+?>
+
+Check if the arrays have any missing values in them.
+<?php if ($errors || $missing) { ?>
+<p class="warning">Please fix the item(s) indicated.</p>
+<?php }?>
+NOTE: when the if statement is false then the html will not be displayed.
+
+	<?php if ($missing && in_array('name', $missing)) { ?>
+        <span class="warning">Please enter your name</span>
+    <?php } ?>
+	
+NOTE: we cannot see the messages yet because we need the processing of the the form before these will show up.
+You won't be able to test that until the processing script has been added and that's the subject of another video.
+
+see next one for this
 ==================================== Making sure required fields aren't blank
+if (isset($_POST['send'])) {
+	 //Any code that comes between these curly braces will be executed only after the form has been submitted. 
+}
+
+
+To handle this he created a separate file to handle these things
+mail_process.php 
+<?php
+foreach ($_POST as $key => $value) {
+	$temp = is_array($value) ? $value : trim($value);  //note trim will not work if $value is an array so do ternary 
+	if (empty($temp) && in_array($key, $required)) {   //is the value empty $temp and in the $required array 
+		$missing[] = $key;								//if true add to $missing
+		$$key = '';
+	} elseif(in_array($key, $expected)) {
+		$$key = $temp;
+	}
+}
+
+NOTE: 
+Before adding the code, I want to explain what it is that I want to do, because just looking at the 
+code itself might be difficult to understand. What I want to do is to convert the post variables
+
+Converting $_POST variables 
+$_POST['name'] 
+$_POST['email'] 
+$_POST['comments'] 
+ 
+and store their values in simpler variables like this. 
+$name 
+$email 
+$comments 
+
+The way I'm going to do it is by using a php construction known as variable variables. 
+Lets say I've got a variable called Key, and its value is name.
+$key = 'name';
+$$key = 'David'; //create a new variable which is called 'name' and assign 'David' to it. Redirection??
+To create a variable variable, I precede the original variable,. With another dollar sign, and then 
+assign it a value, and the result is this.  
+$name = 'David'; 
+
+It creates a new variable using the original name. So if key is email, it will create a new variable called email, 
+and if key is comments, it will also create a new variable called comments. 
+
+
+There's a lot more to do to this script, but by looping through the post array and checking whether 
+required fields have been filled in, you can display error messages.
+
 ==================================== Preserving user input when a form is incomplete
+		<?php
+		if ($errors || $missing) {
+			echo 'value="' . htmlentities($email, ENT_COMPAT, 'utf-8') . '"'; //note this handles double quotes
+																			//also need change to utf-8
+		}
+		?>
+
+		As a courtesy to your site's visitors it's a good idea to preserve user input when 
+		an error is detected. Since the content of each field is in the post array, it's 
+		easy to redisplay... But you need to be careful when injecting unknown values into 
+		your HTML. The script in mail process PHP takes each element in the post array and 
+		reassigns it to a new variable based on the key name.
+
+So the content of the name field is assigned to a variable called name. The content of the email 
+field is assigned to a variable called Email, and so on.
+
+
+NOTE for text area needs to be a bit different
+		<textarea name="comments" id="comments"><?php 
+		if ($errors || $missing) {
+			echo htmlentities($comments, ENT_COMPAT, 'utf-8');
+		}
+		?></textarea>
+		
+		
+So, that's how you preserve user input when a form is submitted with errors before redisplaying values 
+passed through the post array you need to pass them to the HTML entities function. When used with 
+only one argument the function defaults to Western European encoding and corrupts accented characters. 
+By adding ENT_COMPAT as the second argument, and a string containing UTF-8 as the third argument, 
+HTML entities supports not only accented characters, but also Chinese, Japanese and other scripts.
+
 ==================================== Blocking suspect phrases
 ==================================== Adding headers and automating the reply address
  ==================================== Building the message body
