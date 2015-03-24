@@ -688,6 +688,22 @@ By adding ENT_COMPAT as the second argument, and a string containing UTF-8 as th
 HTML entities supports not only accented characters, but also Chinese, Japanese and other scripts.
 
 ==================================== Blocking suspect phrases
+Online forms are a target for spammers looking for vulnerabilities in the processing script. The 
+most common attack is known as email header injection, in which the spammer attempts to trick 
+your form into sending HTML email with copies to many people. In this video, I'll create a function 
+designed to block such attacks.
+
+NOTE:
+mail_process.php is changed
+form.php is changed
+
+Note this change in form.php
+<?php if ($_POST && $suspect) { ?>
+<p class="warning">Sorry your mail could not be be sent.</p>
+<?php } elseif ($errors || $missing) { ?>
+<p class="warning">Please fix the item(s) indicated.</p>
+<?php }?> 
+
 ==================================== Adding headers and automating the reply address
  ==================================== Building the message body
  ==================================== Sending the email
