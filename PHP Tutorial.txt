@@ -69,8 +69,13 @@ c:\xampp\htdocs
 
 
 
- 
+===============***************************************************************=============
+===============***************************************************************============= 
  ===============***** Chapter 2 PHP Basics ******============
+===============***************************************************************=============
+===============***************************************************************=============
+
+
  =======================PHP: The big picture
  --must be processed and stored in the server root 
  --.php 
@@ -217,8 +222,13 @@ echo "Earth is described as {$descriptions['Earth']}";
 
 
 
-
+===============***************************************************************=============
+===============***************************************************************=============
  ===============***** Chapter 3 Using Control Structures and Loops ******============
+===============***************************************************************=============
+===============***************************************************************=============
+
+
 ==================================== The truth according to PHP
 True or False Booleans
 Explicit true or false TRUE FaLsE
@@ -316,8 +326,13 @@ foreach ($array_name as $key => $value) {
 
 
 
-
+===============***************************************************************=============
+===============***************************************************************=============
  ===============***** Chapter 4 Functions, Objects, and Errors ******============
+===============***************************************************************=============
+===============***************************************************************=============
+
+
 ==================================== Using the built-in functions of PHP
 phpversion();  all return a value which you can use or not 
 echo phpversion(); 
@@ -453,14 +468,98 @@ There are 7 files with errors
   
   
   
-  
-  
-  
-  
-  
+===============***************************************************************=============
+===============***************************************************************=============
  ===============***** Chapter 5 Emailing the Contents of an Online Form ******============
+===============***************************************************************=============
+===============***************************************************************=============
 ==================================== Understanding the difference between POST and GET
+
+see form.php
+What happens to the data in an online form depends on whether it's submitted using the post or 
+get method. In this video, I explain the difference between the two methods and introduce you 
+to three of PHP's superglobal arrays. By default, forms are submitted using the get method. 
+But its common practice to specify which method you want to use by adding the method attribute 
+to the opening form tag. In this particular case, I've set it explicitly to get. The action 
+attribute tells the browser where to send the data for processing. Usually, this is the 
+address of a script that checks the data and then handles it in some way or another, such as, 
+emailing it or inserting it into a database. My preference is to add the processing script in 
+a conditional statement above the doc type and create what's known as a self processing form. 
+The reason for doing this is that it makes it easy to redisplay the form if there are any errors.
+
+
+Leaving the action attribute empty, results in the page reloading. And that's valid in HTML4 
+but not in HTML5, which requires a value for the action attribute. You could just type in the 
+name of the page that the form is in. But PHP has a useful preset variable that you can use 
+instead. Let's just add that. PHP echo and then the name of the variable is, begins with an 
+underscore and its server. And then, the name of the array key is PHP_SELF, all in uppercase. 
+So, this automatically inserts the name of the current page into the action attribute turning 
+this into a self processing form. Server or underscore server is one of PHP's super global arrays 
+that are always available in any script, and the names of the super globals are always in uppercase.
+
+And with one exception, they all begin with an underscore. 
+
+
+add a php between the pre and pre tagas at the botton
+
+PHP treats an empty array as being false, so if the get array contains nothing this part of code will be ignored. 
+if ($_GET) {
+	echo "Contents of the $_GET array; <br>";
+	print_r($_GET)
+} elseif ($_POST) {
+	echo "Contents of the $_POST array; <br>";
+	print_r($_POST)
+}
+
+The contents of the get array are down here and the array keys are taken from the name attributes of 
+each form element.
+
+So, name is name, name is email, and name comments and also from the submit button, that name is 
+sent as well. And the values is the data that I submitted through the form. 
+
+
+So, the post and get super global arrays capture the value submitted by a form using the 
+post and get methods respectively.
+The name attributes of each form element is used as the array key. 
+
+NOTE: $_POST does not put the array details in the URL. $_GET does so could use this for searches
+POST would be for sending email or posting to a database
+
+So, the post and get super global arrays capture the value submitted by a form using the post and get methods respectively.
+<form name="contact" method="post" action="<?php echo $_SERVER['PHP_SELF']; ?>">
+<form name="contact" method="get" action="<?php echo $_SERVER['PHP_SELF']; ?>">
+
+The name attributes of each form element is used as the array key. In addition to data submitted by a form, 
+the get array captures any name value pairs appended to the URL as a query string. As a general rule, the get
+ method should be used only for search forms because data is exposed in the URL, and can be bookmarked. Use the 
+ post method for sending emails or for inserting records into a database.
+
 ==================================== Eliminating unwanted backslashes
+Magic Quotes
+study this 
+
+Often when processing a form with PHP, you end up with mysterious backslashes peppered throughout the date. 
+They're caused by Magic Quotes, a feature that was added to PHP many years ago with the intention of making 
+life easier for beginners. It was a well intentioned move but it created more problems than it solved. And 
+as this page in the online manual indicates, this feature has been deprecated and will eventually be removed. 
+
+I strongly recommend that you study this section in the online manual which is at 
+www.php.net/manual/en/security.magicquotes.php.
+
+You want magic quotes turned off. Otherewise strings with ' or " in them are preceeded by \ backslashes
+
+phpinfo  magic_quotes_gpc   change it to Off 
+
+create a text file with this 
+php_flags magic_quotes_gpc Off  save it in the site root as .htaccess
+This only works on Apache.
+Otherwise need this file remove_quotes.php  and add it to the page beginning with a require command
+
+
+The most efficient way to deal with it is to use this ht access command in the site route. But that works 
+only on an Apache server. If you can't do that, then use remove quotes PHP and include it at the beginning 
+of every page that processes data from a form.
+
 
 ==================================== How PHP sends email
 ==================================== Displaying error messages conditionally
@@ -484,8 +583,12 @@ There are 7 files with errors
    
    
    
-   
+===============***************************************************************=============
+===============***************************************************************=============
  ===============***** Chapter 6 Dealing with Multiple-Choise Form Fields ******============
+===============***************************************************************=============
+===============***************************************************************=============
+
 ==================================== Handling radio button groups
 ==================================== Handling single checkboxes
 ==================================== Handling checkbox groups
