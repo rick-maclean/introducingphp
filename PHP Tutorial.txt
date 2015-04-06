@@ -789,7 +789,54 @@ if ($_POST && $mailSent) {
  
  
  ==================================== Sending the email
+ NOTE added 
+ thanks.php
  
+ end of mail_processE.php did this 
+ $mailSent = mail($to, $subject, $message, $headers, $authenticate);	
+	if (!$mailSent) {
+		$errors['mailfail'] = true;
+	}
+	
+now in form.php 
+need to define authenticate 
+	$authenticate = null;    if mail system requires it. If not needed then set it to null 
+	
+if succeeds sent them to another page 
+if ($mailSent) {
+		header('Location: thanks.php');            //go to thanks.php location
+		exit;                                      //Just to make sure that the script doesn't continue running, use the exit command. 
+	} 
+	
+	
+But we need to add some code in case the mail fails for some reason or other. So let's go down here. 
+And we want to display this message, sorry your mail could not be sent.  
+ADDED this extra condition 
+<?php if (($_POST && $suspect) || ($_POST && isset($errors['mailfail']))) { ?> 
+
+
+Then also remove the test block so it does not show up on the form
+REMOVED This 
+<pre>
+<?php
+if ($_POST && $mailSent) {
+	echo htmlentities($message, ENT_COMPAT, 'utf-8');
+	echo 'Headers: ' . htmlentities($headers, ENT_COMPAT, 'utf-8');
+}
+?>
+</pre>
+
+And finally, we need to remove the test block down at the bottom of the page. So, that pre-block with 
+the PHP block inside it, just delete it and then save the page. So, all that remains is to test the 
+mail processing form. The problem is that trying to do this locally is almost certain to end in failure. 
+And the reason for that is that most testing environments don't have a mail transport agent. And even 
+if you set one up, most mail servers will reject mail from unrecognized sources, such as a local testing 
+environment. So, upload form PHP, mail process PHP, and thanks PHP to your own remote server and test it 
+from there.
+
+
+	
+	
  
  
  
