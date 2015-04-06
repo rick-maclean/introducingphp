@@ -705,7 +705,45 @@ Note this change in form.php
 <?php }?> 
 
 ==================================== Adding headers and automating the reply address
- ==================================== Building the message body
+In this video, I'm going to show you how to add additional headers to the mail processing script. One 
+of the most popularl uses of email headers. Is to incorporate the user's email address into a reply to 
+header. Because it enables you to reply directly to incoming messages By clicking the Reply button in your 
+email program. However, this can easily expose your form to an email header injection attack, so I'll 
+show you how to do it safely. Most headers, are likely to be specific to a particular form. So, I'm 
+going to start off by adding the additional headers just before I include the mail processing script.
+
+Added this in the form.php
+    $headers = "From: webmaster@example.com\r\n";
+	$headers .= "Content-type: text/plain; charset=utf-8";
+	
+
+Puting in the reply-To header in the php script mailprocess.php
+see below //from POST (INPUT_POST) array  field is email and validate function
+
+if (!$suspect && !empty($email)) {
+	$validemail = filter_input(INPUT_POST, 'email', FILTER_VALIDATE_EMAIL);  
+	if ($validemail) {
+		$headers .= "\r\nReply-to: $validemail";   //need line feed after last header line
+	} else {
+		$errors['email'] = true;      //create an element in the errors array and set it to true
+	}
+}
+
+now in form.php we have this
+(isset($errors['email'])
+
+and add a span as follows 
+<span class="warning">Invalid email address</span> 
+
+also added email to required 
+$required = array('name', 'email', 'comments');
+
+
+ ==================================== Building the message body 
+ 
+ 
+ 
+ 
  ==================================== Sending the email
  ==================================== 
  ==================================== 

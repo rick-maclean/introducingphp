@@ -2,13 +2,13 @@
 $suspect = false;
 $pattern = '/Content-Type:|Bcc:|Cc:/i';
 
-function isSuspect($val, $pattern, &$suspect) {    //see passed by reference
+function isSuspect($val, $pattern, &$suspect) {
 	if (is_array($val)) {
 		foreach ($val as $item) {
 			isSuspect($item, $pattern, $suspect);
 		}
 	} else {
-		if (preg_match($pattern, $val)) {   //per compatible regular expressions if matches
+		if (preg_match($pattern, $val)) {
 			$suspect = true;
 		}
 	}
