@@ -740,16 +740,62 @@ $required = array('name', 'email', 'comments');
 
 
  ==================================== Building the message body 
+ After the form content has been validated. You can build the body of the email message, and test it. 
+ As long as the form fields have meaningful name attributes. You can automate the process with a 
+ Foreach loop. And the Foreach loop goes at the bottom of mail process PHP. And it needs to go inside 
+ a conditional statement because you don't want to run if there are any problems with the submitted content 
+ in the form. So, if not suspect and. Not missing, and not errors.
+ 
+ if (!$suspect && !$missing && !$errors) {
+	$message = '';                             //hold the message
+	foreach ($expected as $item) {               //$expected = array('name', 'email', 'comments');
+		if (isset($$item) && !empty($$item)) {
+		    $val = $$item;                            //variable variable get the contents of the var??? 
+		} else {
+			$val = 'Not selected';
+		}
+		if (is_array($val)) {                         //if form submits contents as an array
+			$val = implode(', ', $val);              //turn an array into a string
+		}
+		$item = str_replace(array('_', '-'), ' ', $item);  //$item is form field name and use as label in message 
+		                                                   // And remove any underscores or hyphens in the Name and replace them with spaces 
+														   // because we're going to use this as a label in the message.
+		$message .= ucfirst($item) . ": $val\r\n\r\n";
+	}
+	$message = wordwrap($message, 70);                  //messages need to be wrapped at 70 chars 
+	
+	$mailSent = true;
+}
  
  
+ 
+ Go down to the bottom of the HTML and put in a couple of pre-tags. Make sure that everything looks 
+ okay when it's displayed on the screen, and then a PHP block, which will display the values that 
+ we've created in the mail processing script.
+
+So if the form has been submitted and there are no problems with it, what this will do 
+will just be display the Value of the message and the value of the header.
+
+ Add the following to form.php 
+<pre>
+<?php
+if ($_POST && $mailSent) {
+	echo htmlentities($message, ENT_COMPAT, 'utf-8');
+	echo 'Headers: ' . htmlentities($headers, ENT_COMPAT, 'utf-8');
+}
+?>
+</pre> 
+
  
  
  ==================================== Sending the email
+ 
+ 
+ 
+ 
  ==================================== 
  ==================================== 
- ==================================== 
- ==================================== 
- ==================================== 
+ 
    
    
    
