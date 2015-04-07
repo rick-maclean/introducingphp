@@ -1031,6 +1031,80 @@ conditional statements in each of the option tags.
  with errors.
  
 ==================================== Handling multiple-choice lists
+
+A multiple choice list is similar to a check box group in that it allows the user to select zero or 
+more items. So I could choose epub, or epub and PDF, or indeed all three. The HTML structure of a 
+multiple choice element is the same as a select menu but it has the edition of the size and multiple 
+attributes in the opening select tag. However, unlike a select menu nothing is transmitted with the 
+form data if all options are deselected when the form is submitted.
+
+
+ <p>
+        <label for="format">Select the formats you require:</label>
+        <select name="format" size="3" multiple id="format">
+            <option value="PDF">PDF - 8.5&quot; x 11&quot;</option>
+            <option value="ePub">ePub</option>
+            <option value="Mobi">.MOBI</option>
+        </select>
+    </p>
+NOTE you must do this
+<select name="format[]" size="3" multiple id="format">
+so that is submits it as an array. Otherwise it will just submit the last item.
+
+Need to add to $expected
+$expected = array('name', 'email', 'comments', 'format');
+
+Because you've added format, to the expected array the mole processing script Expect that element 
+to be included in the post array. And if the user hasn't selected any of the options in the multiple 
+choice list, it won't exist. So you need to check for its existence and create an empty array with the 
+same name if it's not there.
+
+That's at the top of the page. So we just add that name there, format, and notice that it's just the 
+name format. You don't put the square brackets at the end of it. It's just the name that your interested 
+in. Because you've added format, to the expected array the mole processing script Expect that element 
+to be included in the post array. And if the user hasn't selected any of the options in the multiple 
+choice list, it won't exist. So you need to check for its existence and create an empty array with the 
+same name if it's not there.
+
+And so let's just add that there. If not is set, and the name of the multiple choice list was format, 
+so we're looking for post format. Then we need to add post format to the Host array.
+
+if (!isset($_POST['format'])) {
+		$_POST['format'] = array();
+	}
+And because it's got no elements in it we'll make it an empty array. And that enables the script in mail 
+process PHP to handle the multiple choice list correctly even if nothing is selected. 
+
+ But if the user has selected some elements and the form is submitted with other errors, you need to be 
+ able to redisplay those selected elements.
+		<option value="PDF" <?php
+            if ($_POST && in_array('PDF', $format)) {
+				echo 'selected';
+			}
+			?>
+Do the same for all of them.
+This format array is created by the script and mail process PHP, which goes through each of the elements 
+in the post array And create a new variable based on the name of that post array element key. So we 
+need to add a similar conditional statement to the other option tag so let's just Copy that.
+
+ If you want to require the user to select a minimum number of options in a multiple choice list, you 
+ need to count the number of elements in the array that has been submitted.  And then compare it with your 
+ minimum requirements. So let's just add that to the script. 
+ $minimumSelected = 2;
+	if (count($_POST['format']) < 2) {
+		$errors['format'] = true;
+	}
+	
+And we'll add the error message inside the label for the HOA's list.
+	<label for="format">Select the formats you require:
+        <?php if (isset($errors['format'])) { ?>
+        <span class="warning">Please select at least <?php echo $minimumSelected; ?></span>
+        <?php } ?>
+        </label>
+		
+		
+		
+		
 ==================================== 
 ==================================== 
 ==================================== 
