@@ -835,20 +835,9 @@ environment. So, upload form PHP, mail process PHP, and thanks PHP to your own r
 from there.
 
 
-	
-	
- 
- 
- 
  ==================================== 
  ==================================== 
  
-   
-   
-   
-   
-   
-   
    
    
    
@@ -859,6 +848,57 @@ from there.
 ===============***************************************************************=============
 
 ==================================== Handling radio button groups
+    <fieldset><legend>Gender: </legend><p>
+        <input type="radio" name="gender" value="f" id="gender_f">
+        <label for="gender_f">Female</label>
+        <input type="radio" name="gender" value="m" id="gender_m">
+        <label for="gender_m">Male</label>
+        <input type="radio" name="gender" value="won't say" id="gender_0">
+       <label for="gender_0">Rather not say</label>
+    </p></fieldset>
+	This just puts up 3 radio buttons and see the name is "gender" for each. id differs. Label defined after
+	
+	We also put $expected = array('name', 'email', 'comments', 'gender'); processing script in mail_process will handle it
+	
+	If there are errors we need to redisplay the correct button so need some php logic inside the input element 
+	<input type="radio" name="gender" value="f" id="gender_f"
+	<?php if ($_POST && $gender == 'f')                          //see this just works on this radio button
+	   {echo 'checked';}
+	?>
+	>
+	NOTE: doing echo checked will check the radio button. Does not make sense.
+	
+Now make it required 
+$required = array('name', 'email', 'comments', 'gender');	
+if (!isset{$_POST['gener']}) {$_POST['gender'] = '';}
+	!!!! We need a default value if one is not selected
+	
+need an error message 
+<fieldset><legend>Gender: <?php
+    if ($missing && in_array('gender', $missing)) { ?>    //NOTE!!! PHP code {} containing <span> has second } contained 
+																			in <?php } ?>
+	<span class="warning">Please select a value</span>
+    <?php } ?>
+	
+	
+BUT let's give it a default value
+
+<input type="radio" name="gender" value="won't say" id="gender_0"
+        <?php
+		/* Sets this radio button as the default */
+		if (!$_POST || $gender == "won't say") {
+			echo 'checked';
+		}
+		/* Use this version if no default is set
+		if ($_POST && $gender == "won't say") {
+			echo 'checked';
+		}
+		*/
+		?>
+>
+<label for="gender_0">Rather not say</label> 
+
+
 ==================================== Handling single checkboxes
 ==================================== Handling checkbox groups
 ==================================== Handling select menus
