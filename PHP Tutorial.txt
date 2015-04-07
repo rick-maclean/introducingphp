@@ -899,7 +899,34 @@ BUT let's give it a default value
 <label for="gender_0">Rather not say</label> 
 
 
-==================================== Handling single checkboxes
+==================================== Handling single checkboxes 
+<input type="checkbox" name="terms" id="terms" value="Agreed">
+
+need to add it to both $expected and $required
+And if it is not set then we need the following 
+if (!isset($_POST['terms'])) {
+		$_POST['terms'] = '';
+		$errors['terms'] = true;       //this will prevent the mail from being sent
+	}  
+	
+2 situations
+1) other errors and it is selected, we want to make sure on redisplay it is showing)
+<input type="checkbox" name="terms" id="terms" value="Agreed"
+      <?php
+	  if ($_POST && $terms) {
+		  echo 'checked';
+	  }
+	  ?>
+      >
+2) it is not selected, then show the message after the label
+<label for="terms">I agree to the terms and conditions
+      <?php if ($_POST && isset($errors['terms'])) { ?>
+      <span class="warning">Please signify acceptance</span>
+      <?php } ?>
+      </label>
+	
+
+
 ==================================== Handling checkbox groups
 ==================================== Handling select menus
 ==================================== Handling multiple-choice lists
