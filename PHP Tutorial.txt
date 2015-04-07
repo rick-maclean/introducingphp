@@ -976,7 +976,60 @@ It is a problem to just have this:
     <span class="warning">Please select at least <?php echo $minimumChecked; ?></span>
     <?php } ?>
 	
-==================================== Handling select menus
+==================================== Handling select menus 
+Dropdown list
+<p>
+        <label for="os">Operating system:</label>
+        <select name="os" id="os">
+            <option value="Not selected" selected>Please make a selection</option>
+            <option value="Linux">Linux</option>
+            <option value="Mac">Mac OS X</option>   //if you don't have a value attr then the string Mac OS X will be sent
+            <option value="Windows">Windows</option>
+        </select>
+</p>
+If the user does not select anything then the value 'Not Selected' will be sent.
+If you want to force a selection then you could just remove this line 
+<option value="Not selected" selected>Please make a selection</option>
+
+Another option is to reject "Not selected" in the mail processing script. 
+
+A change to make this required but have the process php script work is to make the value empty
+<option value="" selected>Please make a selection</option>
+The other way of dealing with this is to reject this value. If it is selected when the form is submitted. 
+The male processsing script in male processed php adds the name of a required feel to the missing array 
+Only if the value is empty. So to make this field requried, you need to make this value an empty string, 
+like this. But it's important to leave the value attributes in the option tag
+
+We also need this
+	$expected = array('name', 'email', 'comments', 'os');
+	$required = array('name', 'email', 'comments', 'os');
+	
+Now we want to make sure there is an error message
+<label for="os">Operating system:<?php if ($missing && in_array('os', $missing)) { ?>
+        <span class="warning">Please make a selection</span>
+        <?php } ?></label>
+        <select name="os" id="os">
+
+So we need to check if the missing array contains any elements. And if this particular. Element is in the 
+missing array.
+Then add an error message. "Please make a selection". 
+We want selected when it is first loaded
+<option value="" <?php if (!$_POST || $os == '') {
+				echo 'selected';
+			} ?>>Please make a selection</option>
+
+
+And then we just need to add the closing curly brace. If the form is being submited with 
+errors we need to add the selected atribute to the correct option tag. So this involves putting 
+conditional statements in each of the option tags.		
+
+<option value="Linux" <?php if ($_POST && $os == 'Linux') {
+				echo 'selected';
+			}?>>Linux</option>
+	
+ So, that's how to make a user friendly select menu that remembers the user selection if the form is submitted 
+ with errors.
+ 
 ==================================== Handling multiple-choice lists
 ==================================== 
 ==================================== 
