@@ -928,6 +928,54 @@ if (!isset($_POST['terms'])) {
 
 
 ==================================== Handling checkbox groups
+It is a problem to just have this:
+<input type="checkbox" name="extras" value="sun roof" id="extras_0"> //extras needs to be an array
+
+<fieldset><legend>Optional Extras:</legend><p>
+      
+        <input type="checkbox" name="extras[]" value="sun roof" id="extras_0">
+      <label for="extras_0">Sun roof</label>
+      <br>
+      
+        <input type="checkbox" name="extras[]" value="aircon" id="extras_1">
+      <label for="extras_1">Air conditioning</label>
+      <br>
+      
+        <input type="checkbox" name="extras[]" value="automatic" id="extras_2">
+      <label for="extras_2"> Automatic transmission</label>
+    </p></fieldset>
+	
+	If all the boxes are left unselected then they will not be added to the data transmitted with the form.
+	
+	Need to add it to the $expected array so the processing form will look for it. If none are selected 
+	then you need to add something to $expected
+	$expected = array('name', 'email', 'comments', 'extras');
+	$required = array('name', 'email', 'comments');
+	if (!isset($_POST['extras'])) {                   //if it was not set then add it to POST
+		$_POST['extras'] = array();                   //array() is an empty array
+	}
+	
+	If there are other errors in the form but the user selected a checkbox you need to display what was selected
+	<input type="checkbox" name="extras[]" value="sun roof" id="extras_0"
+        <?php
+		if ($_POST && in_array('sun roof', $extras)) {       //look for sun roof in the $extras array
+															//do this for each one 
+			echo 'checked';									//echo 'checked' is PHP for making it checked
+		}
+		?>
+    >
+	NOTE: the way this is set up they can all be checked at the same time.
+	
+	We want at lease two boxes selected soooo add the following
+	$minimumChecked = 2;
+	if (count($_POST['extras']) < $minimumChecked) {  //count how many in $_POST have index 'extras'
+		$errors['extras'] = true;                     //errors has extras set to true
+	}
+	NOW we need to add the error message
+	<fieldset><legend>Optional Extras: <?php if (isset($errors['extras'])) { ?>
+    <span class="warning">Please select at least <?php echo $minimumChecked; ?></span>
+    <?php } ?>
+	
 ==================================== Handling select menus
 ==================================== Handling multiple-choice lists
 ==================================== 
